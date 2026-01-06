@@ -28,32 +28,38 @@ export default function HeaderControls({
   onToggleReducedMotion,
 }: HeaderControlsProps) {
   return (
-    <header className="bg-white/80 backdrop-blur-sm shadow-md sticky top-0 z-50 border-b border-purple-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <div className="flex flex-col gap-4">
+    <header className="glass-effect sticky top-0 z-50 shadow-lg border-b border-purple-200/50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+        <div className="flex flex-col gap-5">
           {/* Title */}
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-            🎉 Fountain Birthdays
-          </h1>
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center text-2xl shadow-lg">
+              🎉
+            </div>
+            <h1 className="text-4xl font-extrabold gradient-text">
+              Fountain Birthdays
+            </h1>
+          </div>
 
           {/* Controls Row */}
           <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
             {/* Search */}
-            <div className="flex-1 w-full sm:w-auto">
+            <div className="flex-1 w-full sm:w-auto relative">
               <input
                 type="text"
                 placeholder="Search by name..."
                 value={searchQuery}
                 onChange={(e) => onSearchChange(e.target.value)}
-                className="w-full px-4 py-2 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="w-full px-4 py-2.5 pl-10 border-2 border-purple-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-400 bg-white/80 backdrop-blur-sm shadow-sm transition-all"
               />
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
             </div>
 
             {/* Filter Dropdown */}
             <select
               value={filter}
               onChange={(e) => onFilterChange(e.target.value as FilterType)}
-              className="px-4 py-2 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white"
+              className="px-4 py-2.5 border-2 border-purple-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-400 bg-white/80 backdrop-blur-sm shadow-sm transition-all font-medium"
             >
               <option value="all">All</option>
               <option value="today">Today</option>
@@ -62,26 +68,26 @@ export default function HeaderControls({
             </select>
 
             {/* View Toggle */}
-            <div className="flex gap-2 bg-purple-50 p-1 rounded-lg">
+            <div className="flex gap-2 bg-gradient-to-r from-purple-100 to-pink-100 p-1.5 rounded-xl shadow-inner">
               <button
                 onClick={() => onViewChange('card')}
-                className={`px-4 py-2 rounded-md transition-colors ${
+                className={`px-5 py-2.5 rounded-lg transition-all font-semibold ${
                   view === 'card'
-                    ? 'bg-white shadow-sm text-purple-600 font-medium'
-                    : 'text-purple-600 hover:bg-white/50'
+                    ? 'bg-white shadow-lg text-purple-600 scale-105'
+                    : 'text-purple-600 hover:bg-white/70 hover:scale-105'
                 }`}
               >
-                Card Wall
+                🎴 Card Wall
               </button>
               <button
                 onClick={() => onViewChange('calendar')}
-                className={`px-4 py-2 rounded-md transition-colors ${
+                className={`px-5 py-2.5 rounded-lg transition-all font-semibold ${
                   view === 'calendar'
-                    ? 'bg-white shadow-sm text-purple-600 font-medium'
-                    : 'text-purple-600 hover:bg-white/50'
+                    ? 'bg-white shadow-lg text-purple-600 scale-105'
+                    : 'text-purple-600 hover:bg-white/70 hover:scale-105'
                 }`}
               >
-                Calendar
+                📅 Calendar
               </button>
             </div>
 
@@ -89,22 +95,22 @@ export default function HeaderControls({
             <div className="flex gap-2">
               <button
                 onClick={onExportCsv}
-                className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors text-sm"
+                className="px-4 py-2.5 bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-xl hover:from-purple-700 hover:to-purple-800 transition-all shadow-lg hover:shadow-xl hover:scale-105 text-sm font-semibold"
               >
-                Export CSV
+                📥 Export CSV
               </button>
               <button
                 onClick={onImportCsv}
-                className="px-4 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-colors text-sm"
+                className="px-4 py-2.5 bg-gradient-to-r from-pink-600 to-pink-700 text-white rounded-xl hover:from-pink-700 hover:to-pink-800 transition-all shadow-lg hover:shadow-xl hover:scale-105 text-sm font-semibold"
               >
-                Import CSV
+                📤 Import CSV
               </button>
               <button
                 onClick={onToggleReducedMotion}
-                className={`px-4 py-2 rounded-lg transition-colors text-sm ${
+                className={`px-4 py-2.5 rounded-xl transition-all text-sm font-semibold shadow-md hover:shadow-lg hover:scale-105 ${
                   reducedMotion
-                    ? 'bg-gray-600 text-white hover:bg-gray-700'
-                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                    ? 'bg-gradient-to-r from-gray-600 to-gray-700 text-white hover:from-gray-700 hover:to-gray-800'
+                    : 'bg-gradient-to-r from-gray-200 to-gray-300 text-gray-700 hover:from-gray-300 hover:to-gray-400'
                 }`}
                 title="Reduce motion"
               >

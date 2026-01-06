@@ -162,3 +162,4 @@ export function getUpcomingBirthdays(people: BirthdayPerson[], count: number = 1
   return sorted.slice(0, count);
 }
 
+

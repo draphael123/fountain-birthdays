@@ -8,3 +8,4 @@ export type FilterType = 'all' | 'today' | 'thisMonth' | 'next30Days';
 
 export type ViewType = 'card' | 'calendar';
 
+

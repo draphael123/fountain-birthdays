@@ -167,8 +167,15 @@ export default function Home() {
     <div className="min-h-screen">
       {/* Celebration Banner */}
       {hasTodaysBirthdays && (
-        <div className={`bg-gradient-to-r from-pink-500 to-purple-600 text-white text-center py-3 px-4 ${!reducedMotion ? 'animate-bounce' : ''}`}>
-          <p className="font-bold text-lg">🎉 Happy Birthday! 🎉</p>
+        <div className={`relative overflow-hidden bg-gradient-to-r from-pink-500 via-purple-600 to-pink-500 text-white text-center py-4 px-4 shadow-lg ${
+          !reducedMotion ? 'animate-bounce' : ''
+        }`}>
+          <div className="absolute inset-0 bg-white/20 animate-pulse" />
+          <div className="relative flex items-center justify-center gap-3">
+            <span className="text-2xl animate-spin">🎉</span>
+            <p className="font-extrabold text-xl tracking-wide">Happy Birthday!</p>
+            <span className="text-2xl animate-spin" style={{ animationDirection: 'reverse' }}>🎉</span>
+          </div>
         </div>
       )}
 
@@ -196,19 +203,23 @@ export default function Home() {
                   setEditingPerson(null);
                   setShowPersonForm(true);
                 }}
-                className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg hover:from-purple-700 hover:to-pink-700 transition-colors font-medium"
+                className="group px-6 py-3 bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 text-white rounded-xl hover:from-purple-700 hover:via-pink-700 hover:to-purple-700 transition-all font-bold text-lg shadow-lg hover:shadow-xl hover:scale-105 flex items-center gap-2"
               >
-                + Add Person
+                <span className="text-2xl group-hover:rotate-90 transition-transform">➕</span>
+                <span>Add Person</span>
               </button>
             </div>
 
             {/* Card Wall View */}
             {view === 'card' && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredPeople.length === 0 ? (
-                  <div className="col-span-full text-center py-12 text-gray-500">
-                    <p className="text-lg">No birthdays found</p>
-                    <p className="text-sm mt-2">Try adjusting your search or filter</p>
+                  <div className="col-span-full text-center py-16">
+                    <div className="inline-block p-6 bg-gradient-to-br from-purple-100 to-pink-100 rounded-3xl mb-4">
+                      <span className="text-6xl">🎂</span>
+                    </div>
+                    <p className="text-xl font-bold text-gray-700 mb-2">No birthdays found</p>
+                    <p className="text-sm text-gray-500">Try adjusting your search or filter</p>
                   </div>
                 ) : (
                   filteredPeople.map((person) => (

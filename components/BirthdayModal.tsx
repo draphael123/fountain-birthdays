@@ -61,57 +61,103 @@ export default function BirthdayModal({ person, onClose, onDelete, onEdit }: Bir
 
   return (
     <div
-      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-center justify-center p-4"
       onClick={handleBackdropClick}
     >
       <div
         ref={modalRef}
-        className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 animate-in fade-in zoom-in duration-200"
+        className={`relative overflow-hidden rounded-3xl shadow-2xl max-w-md w-full p-8 animate-in fade-in zoom-in duration-300 ${
+          isToday 
+            ? 'bg-gradient-to-br from-pink-500 via-purple-500 to-pink-600 text-white' 
+            : 'bg-white/95 backdrop-blur-lg border-2 border-purple-100'
+        }`}
         role="dialog"
         aria-labelledby="modal-title"
         aria-modal="true"
       >
-        <div className="flex justify-between items-start mb-4">
-          <h2 id="modal-title" className="text-2xl font-bold text-gray-800">
-            {person.name}
-          </h2>
+        {/* Decorative elements */}
+        {isToday && (
+          <>
+            <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/20 rounded-full blur-3xl" />
+          </>
+        )}
+        
+        <div className="relative flex justify-between items-start mb-6">
+          <div>
+            <h2 id="modal-title" className={`text-3xl font-extrabold ${
+              isToday ? 'text-white' : 'text-gray-800'
+            }`}>
+              {person.name}
+            </h2>
+            {isToday && (
+              <p className="text-yellow-200 text-sm font-semibold mt-1 flex items-center gap-1">
+                <span className="animate-bounce">🎉</span>
+                <span>Celebrating Today!</span>
+              </p>
+            )}
+          </div>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 text-2xl leading-none"
+            className={`text-3xl leading-none hover:scale-110 transition-transform ${
+              isToday ? 'text-white/80 hover:text-white' : 'text-gray-400 hover:text-gray-600'
+            }`}
             aria-label="Close modal"
           >
             ×
           </button>
         </div>
 
-        <div className="space-y-4">
-          <div>
-            <p className="text-sm text-gray-500">Date of Birth</p>
-            <p className="text-lg font-medium text-gray-800">{getFormattedDOB(person.dob)}</p>
+        <div className="relative space-y-5">
+          <div className={`p-4 rounded-xl ${
+            isToday ? 'bg-white/20 backdrop-blur-sm' : 'bg-purple-50'
+          }`}>
+            <p className={`text-xs font-semibold uppercase tracking-wide mb-1 ${
+              isToday ? 'text-white/80' : 'text-gray-500'
+            }`}>Date of Birth</p>
+            <p className={`text-lg font-bold ${
+              isToday ? 'text-white' : 'text-gray-800'
+            }`}>{getFormattedDOB(person.dob)}</p>
           </div>
 
-          <div>
-            <p className="text-sm text-gray-500">Next Birthday</p>
-            <p className="text-lg font-medium text-gray-800">{getFormattedNextBirthday(person.dob)}</p>
+          <div className={`p-4 rounded-xl ${
+            isToday ? 'bg-white/20 backdrop-blur-sm' : 'bg-pink-50'
+          }`}>
+            <p className={`text-xs font-semibold uppercase tracking-wide mb-1 ${
+              isToday ? 'text-white/80' : 'text-gray-500'
+            }`}>Next Birthday</p>
+            <p className={`text-lg font-bold ${
+              isToday ? 'text-white' : 'text-gray-800'
+            }`}>{getFormattedNextBirthday(person.dob)}</p>
           </div>
 
-          <div>
-            <p className="text-sm text-gray-500">Days Until</p>
+          <div className={`p-5 rounded-xl ${
+            isToday 
+              ? 'bg-gradient-to-br from-yellow-300/30 to-pink-400/30 backdrop-blur-sm border-2 border-yellow-200/50' 
+              : 'bg-gradient-to-br from-purple-100 to-pink-100'
+          }`}>
+            <p className={`text-xs font-semibold uppercase tracking-wide mb-2 ${
+              isToday ? 'text-white/90' : 'text-gray-500'
+            }`}>Days Until</p>
             <p
-              className={`text-2xl font-bold ${
-                isToday ? 'text-pink-600' : daysUntil <= 7 ? 'text-purple-600' : 'text-gray-800'
+              className={`text-4xl font-extrabold ${
+                isToday 
+                  ? 'text-yellow-200' 
+                  : daysUntil <= 7 
+                  ? 'text-purple-600' 
+                  : 'text-gray-800'
               }`}
             >
               {isToday ? '🎉 Today!' : `${daysUntil} day${daysUntil !== 1 ? 's' : ''}`}
             </p>
           </div>
 
-          <div className="pt-4 border-t border-gray-200">
+          <div className="pt-4 border-t border-gray-200/50">
             <button
               onClick={handleCopyMessage}
-              className="w-full px-4 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all font-medium"
+              className="w-full px-6 py-4 bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 text-white rounded-xl hover:from-purple-700 hover:via-pink-700 hover:to-purple-700 transition-all font-bold text-lg shadow-lg hover:shadow-xl hover:scale-105"
             >
-              Copy Birthday Message
+              📋 Copy Birthday Message
             </button>
           </div>
 
@@ -148,4 +194,5 @@ export default function BirthdayModal({ person, onClose, onDelete, onEdit }: Bir
     </div>
   );
 }
+
 
