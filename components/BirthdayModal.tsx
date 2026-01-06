@@ -90,6 +90,15 @@ export default function BirthdayModal({ person, onClose, onDelete, onEdit }: Bir
             }`}>
               {person.name}
             </h2>
+            {person.team && (
+              <p className={`text-sm font-semibold mt-2 px-3 py-1 rounded-lg inline-block ${
+                isToday 
+                  ? 'bg-white/20 text-white' 
+                  : 'bg-purple-100 text-purple-700'
+              }`}>
+                👥 {person.team}
+              </p>
+            )}
             {isToday && (
               <p className="text-yellow-200 text-sm font-semibold mt-1 flex items-center gap-1">
                 <span className="animate-bounce">🎉</span>

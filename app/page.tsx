@@ -23,6 +23,7 @@ export default function Home() {
   const [people, setPeople] = useState<BirthdayPerson[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [filter, setFilter] = useState<FilterType>('all');
+  const [teamFilter, setTeamFilter] = useState<string>('all');
   const [view, setView] = useState<ViewType>('card');
   const [selectedPerson, setSelectedPerson] = useState<BirthdayPerson | null>(null);
   const [showCsvDropzone, setShowCsvDropzone] = useState(false);
@@ -80,19 +81,36 @@ export default function Home() {
     }
   }, [people]);
 
+  // Get unique teams
+  const uniqueTeams = useMemo(() => {
+    const teams = new Set<string>();
+    people.forEach((person) => {
+      if (person.team) {
+        teams.add(person.team);
+      }
+    });
+    return Array.from(teams).sort();
+  }, [people]);
+
   // Filter and search
   const filteredPeople = useMemo(() => {
     let result = filterBirthdays(people, filter);
     
+    // Filter by team
+    if (teamFilter !== 'all') {
+      result = result.filter((person) => person.team === teamFilter);
+    }
+    
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
       result = result.filter((person) =>
-        person.name.toLowerCase().includes(query)
+        person.name.toLowerCase().includes(query) ||
+        (person.team && person.team.toLowerCase().includes(query))
       );
     }
 
     return sortBySoonestBirthday(result);
-  }, [people, filter, searchQuery]);
+  }, [people, filter, teamFilter, searchQuery]);
 
   // Get upcoming birthdays for sidebar
   const upcomingBirthdays = useMemo(() => {
@@ -107,10 +125,11 @@ export default function Home() {
   // Handle CSV export
   const handleExportCsv = () => {
     const csvContent = [
-      'Name,DOB',
+      'Name,DOB,Team',
       ...people.map((person) => {
         const dob = format(person.dob, 'MM/dd/yyyy');
-        return `"${person.name}",${dob}`;
+        const team = person.team || '';
+        return `"${person.name}",${dob},"${team}"`;
       }),
     ].join('\n');
 
@@ -184,6 +203,9 @@ export default function Home() {
         onSearchChange={setSearchQuery}
         filter={filter}
         onFilterChange={setFilter}
+        teamFilter={teamFilter}
+        onTeamFilterChange={setTeamFilter}
+        teams={uniqueTeams}
         view={view}
         onViewChange={setView}
         onExportCsv={handleExportCsv}

@@ -12,6 +12,7 @@ interface PersonFormProps {
 export default function PersonForm({ person, onSave, onClose }: PersonFormProps) {
   const [name, setName] = useState('');
   const [dob, setDob] = useState('');
+  const [team, setTeam] = useState('');
 
   useEffect(() => {
     if (person) {
@@ -19,9 +20,11 @@ export default function PersonForm({ person, onSave, onClose }: PersonFormProps)
       // Format date as YYYY-MM-DD for input
       const date = new Date(person.dob);
       setDob(formatDateForInput(date));
+      setTeam(person.team || '');
     } else {
       setName('');
       setDob('');
+      setTeam('');
     }
   }, [person]);
 
@@ -48,6 +51,7 @@ export default function PersonForm({ person, onSave, onClose }: PersonFormProps)
     onSave({
       name: name.trim(),
       dob: dobDate,
+      team: team.trim() || undefined,
     });
     onClose();
   };
@@ -91,6 +95,20 @@ export default function PersonForm({ person, onSave, onClose }: PersonFormProps)
               onChange={(e) => setDob(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
               required
+            />
+          </div>
+
+          <div>
+            <label htmlFor="team" className="block text-sm font-medium text-gray-700 mb-1">
+              Team (Optional)
+            </label>
+            <input
+              id="team"
+              type="text"
+              value={team}
+              onChange={(e) => setTeam(e.target.value)}
+              placeholder="Enter team name"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
           </div>
 

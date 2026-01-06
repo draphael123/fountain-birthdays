@@ -10,10 +10,11 @@ export function parseCsv(csvContent: string): BirthdayPerson[] {
     return [];
   }
 
-  // Parse header to find Name and DOB column indices
+  // Parse header to find Name, DOB, and Team column indices
   const header = lines[0].split(',').map(col => col.trim().toLowerCase());
   const nameIndex = header.findIndex(col => col === 'name');
   const dobIndex = header.findIndex(col => col === 'dob' || col === 'date of birth' || col === 'birthday');
+  const teamIndex = header.findIndex(col => col === 'team' || col === 'department' || col === 'group');
 
   if (nameIndex === -1 || dobIndex === -1) {
     throw new Error('CSV must contain "Name" and "DOB" columns');
@@ -50,6 +51,7 @@ export function parseCsv(csvContent: string): BirthdayPerson[] {
 
     const name = fields[nameIndex]?.trim();
     const dobStr = fields[dobIndex]?.trim();
+    const team = teamIndex !== -1 ? fields[teamIndex]?.trim() : undefined;
 
     if (!name || !dobStr) {
       continue;
@@ -94,6 +96,7 @@ export function parseCsv(csvContent: string): BirthdayPerson[] {
       id,
       name,
       dob,
+      team: team || undefined,
     });
   }
 

@@ -55,6 +55,15 @@ export default function BirthdayCard({ person, onClick }: BirthdayCardProps) {
           }`}>
             {getFormattedBirthday(person.dob)}
           </p>
+          {person.team && (
+            <p className={`text-xs font-semibold mt-1 px-2 py-1 rounded-lg inline-block ${
+              isToday 
+                ? 'bg-white/20 text-white/90' 
+                : 'bg-purple-100 text-purple-700'
+            }`}>
+              {person.team}
+            </p>
+          )}
           <div className="flex items-center gap-2 mt-3">
             <p
               className={`text-sm font-bold ${

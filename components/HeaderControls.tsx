@@ -7,6 +7,9 @@ interface HeaderControlsProps {
   onSearchChange: (query: string) => void;
   filter: FilterType;
   onFilterChange: (filter: FilterType) => void;
+  teamFilter: string;
+  onTeamFilterChange: (team: string) => void;
+  teams: string[];
   view: ViewType;
   onViewChange: (view: ViewType) => void;
   onExportCsv: () => void;
@@ -20,6 +23,9 @@ export default function HeaderControls({
   onSearchChange,
   filter,
   onFilterChange,
+  teamFilter,
+  onTeamFilterChange,
+  teams,
   view,
   onViewChange,
   onExportCsv,
@@ -66,6 +72,22 @@ export default function HeaderControls({
               <option value="thisMonth">This month</option>
               <option value="next30Days">Next 30 days</option>
             </select>
+
+            {/* Team Filter Dropdown */}
+            {teams.length > 0 && (
+              <select
+                value={teamFilter}
+                onChange={(e) => onTeamFilterChange(e.target.value)}
+                className="px-4 py-2.5 border-2 border-purple-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-400 bg-white/80 backdrop-blur-sm shadow-sm transition-all font-medium"
+              >
+                <option value="all">All Teams</option>
+                {teams.map((team) => (
+                  <option key={team} value={team}>
+                    {team}
+                  </option>
+                ))}
+              </select>
+            )}
 
             {/* View Toggle */}
             <div className="flex gap-2 bg-gradient-to-r from-purple-100 to-pink-100 p-1.5 rounded-xl shadow-inner">
