@@ -58,7 +58,7 @@ export default function CsvDropzone({ onImport, onClose }: CsvDropzoneProps) {
       >
         <h2 className="text-2xl font-bold text-gray-800 mb-4">Import CSV</h2>
         <p className="text-sm text-gray-600 mb-4">
-          CSV must contain "Name" and "DOB" columns. Date format: MM/DD/YYYY or MM/DD
+          CSV must contain &quot;Name&quot; and &quot;DOB&quot; columns. Date format: MM/DD/YYYY or MM/DD
         </p>
 
         <div

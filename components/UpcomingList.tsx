@@ -18,7 +18,7 @@ export default function UpcomingList({ people }: UpcomingListProps) {
       {todaysBirthdays.length > 0 && (
         <div className="bg-gradient-to-br from-pink-500 to-purple-600 rounded-2xl p-6 text-white shadow-lg">
           <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-            🎉 Today's Birthdays
+            🎉 Today&apos;s Birthdays
           </h2>
           <div className="space-y-3">
             {todaysBirthdays.map((person) => {
